@@ -7,6 +7,62 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+  const canvas = document.querySelector("#draw");
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle="purple";
+  ctx.lineJoin="round";
+  ctx.lineCap="round";
+  ctx.lineWidth=50;
+  // ctx.globalCompositeOperation="multiply"
+  let is_Drawing = false,
+      last_X = 0,
+      last_Y = 0,
+      hue=0,
+      Saturation=0,
+      Lightness=0,
+      direction=true;
+  function draw(e){
+    if(!is_Drawing){
+      return
+    }
+    // console.log(e)
+    ctx.strokeStyle = `hsl(${hue},100%,50%)`
+    ctx.beginPath();
+    ctx.moveTo(last_X,last_Y);
+    ctx.lineTo(e.offsetX,e.offsetY);
+    ctx.stroke();
+    [last_X,last_Y]=[e.offsetX,e.offsetY]
+    hue++;
+    Saturation++;
+    Lightness++;
+    if(hue>360){
+      hue = 0;
+    }
+    if(ctx.lineWidth>100 || ctx.lineWidth<=1){
+      direction = !direction
+    }
+    if(direction){
+      ctx.lineWidth++;
+    }else{
+      ctx.lineWidth--;
+    }
+    // if(Saturation >100 || Lightness>100){
+    //   Saturation = 0;
+    //   Lightness = 0;
+    // }
+    // console.log(hue,Saturation,Lightness)
+  }
+
+  canvas.addEventListener('mousemove',draw)
+  canvas.addEventListener('mousedown',(e)=>{
+    is_Drawing=true;
+    [last_X,last_Y]=[e.offsetX,e.offsetY]
+
+  })
+  canvas.addEventListener('mouseup',()=>is_Drawing=false)
+  canvas.addEventListener('mouseout',()=>is_Drawing=false)
 </script>
 
 <style>

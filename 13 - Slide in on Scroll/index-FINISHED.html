@@ -77,6 +77,18 @@
     }
 
     window.addEventListener('scroll', debounce(checkSlide));
+    window.addEventListener('scroll', checkSlide);
+    window.addEventListener('scroll', function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) window.checkSlide() //func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) window.checkSlide()//func.apply(context, args);
+    };);
 
   </script>
 
