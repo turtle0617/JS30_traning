@@ -115,8 +115,9 @@
           sliderImage.classList.add('active');
         } else {
           sliderImage.classList.remove('active');
+          // console.log("remove");
         }
-        console.log(isHalfShown,isNotScrolledPast);
+        console.log(sliderImage.offsetTop,sliderImage.height);
       })
     }
     window.addEventListener('scroll', debounce(checkSlide))
