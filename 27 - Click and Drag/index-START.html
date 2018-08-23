@@ -54,6 +54,7 @@ slider.addEventListener('mousemove',(e)=>{
   e.preventDefault();
   const x =  e.pageX-slider.offsetLeft;
   const walk = x - starX;
+  console.log("walk",walk);
   slider.scrollLeft = scrollLeft-walk;
 })
 slider.addEventListener( 'mouseleave',()=>{
